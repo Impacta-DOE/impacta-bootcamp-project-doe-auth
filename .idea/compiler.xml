@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="impacta-bootcamp-project-doe-auth" target="10" />
+      <module name="impacta-bootcamp-project-doe-auth" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

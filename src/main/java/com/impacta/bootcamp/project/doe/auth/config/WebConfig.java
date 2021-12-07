@@ -1,19 +1,15 @@
 package com.impacta.bootcamp.project.doe.auth.config;
 
 
-
-import java.util.List;
-
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
 @Configuration
-public class WebConfig implements WebMvcConfigurer{
+public class WebConfig implements WebMvcConfigurer {
 
     private static final MediaType MEDIA_TYPE_YML = MediaType.valueOf("application/x-yaml");
 
@@ -24,7 +20,7 @@ public class WebConfig implements WebMvcConfigurer{
     }
 
     @Override
-    public void configureContentNegotiation(ContentNegotiationConfigurer configurer ) {
+    public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
         configurer.favorPathExtension(false)
                 .favorParameter(false)
                 .ignoreAcceptHeader(false)

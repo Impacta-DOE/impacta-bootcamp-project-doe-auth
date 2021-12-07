@@ -1,6 +1,5 @@
 package com.impacta.bootcamp.project.doe.auth.security.jwt;
 
-import com.impacta.bootcamp.project.doe.auth.exceptions.InvalidJWTAuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

@@ -7,13 +7,12 @@ import java.io.Serializable;
 import java.util.Objects;
 
 
-
 @Entity
 @Table(name = "permission")
 public class Permission implements GrantedAuthority, Serializable {
     public static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy =GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
     @Column(name = "description")

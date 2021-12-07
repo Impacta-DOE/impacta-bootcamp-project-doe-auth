@@ -20,7 +20,7 @@ public class User implements UserDetails, Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "user_name",unique = true)
+    @Column(name = "user_name", unique = true)
     private String userName;
     @Column(name = "full_name")
     private String fullName;
@@ -35,7 +35,7 @@ public class User implements UserDetails, Serializable {
     @Column(name = "enabled")
     private boolean enabled;
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_permission",joinColumns = {@JoinColumn(name = "id_user")},inverseJoinColumns =  {@JoinColumn(name = "id_permission")})
+    @JoinTable(name = "user_permission", joinColumns = {@JoinColumn(name = "id_user")}, inverseJoinColumns = {@JoinColumn(name = "id_permission")})
     private List<Permission> permissions;
 
 
@@ -91,16 +91,17 @@ public class User implements UserDetails, Serializable {
         this.permissions = permissions;
     }
 
-    public List<String> getRoles(){
+    public List<String> getRoles() {
 
-       List<String> roles = new ArrayList<>();
-       for (Permission permission: this.permissions
-            ) {
-           roles.add(permission.getDescription());
-           
-       }
-       return roles;
-   }
+        List<String> roles = new ArrayList<>();
+        for (Permission permission : this.permissions
+        ) {
+            roles.add(permission.getDescription());
+
+        }
+        return roles;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.permissions;

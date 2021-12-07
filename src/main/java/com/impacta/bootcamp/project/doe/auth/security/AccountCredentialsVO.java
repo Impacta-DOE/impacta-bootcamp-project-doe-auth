@@ -3,7 +3,7 @@ package com.impacta.bootcamp.project.doe.auth.security;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class AccountCredentialsVO  implements Serializable {
+public class AccountCredentialsVO implements Serializable {
     public static final long serialVersionUID = 1L;
     private String username;
 

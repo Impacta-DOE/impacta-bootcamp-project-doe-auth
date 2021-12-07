@@ -4,21 +4,18 @@ import com.impacta.bootcamp.project.doe.auth.repository.UserRepository;
 import com.impacta.bootcamp.project.doe.auth.security.AccountCredentialsVO;
 import com.impacta.bootcamp.project.doe.auth.security.AutorizeVO;
 import com.impacta.bootcamp.project.doe.auth.security.jwt.JwtTokenProvider;
-import javassist.tools.web.BadHttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,9 +29,9 @@ public class AuthController {
     @Autowired
     UserRepository userRepository;
 
-    @PostMapping(value = "/login" ,produces = { "application/json"},
-            consumes = { "application/json" })
-    public ResponseEntity login (@RequestBody AccountCredentialsVO data) {
+    @PostMapping(value = "/login", produces = {"application/json"},
+            consumes = {"application/json"})
+    public ResponseEntity login(@RequestBody AccountCredentialsVO data) {
         try {
 
             var username = data.getUsername();
@@ -59,24 +56,24 @@ public class AuthController {
         }
     }
 
-        @PostMapping(value = "/authorize" ,produces = { "application/json"},
-                consumes = { "application/json" })
-        public ResponseEntity authorize (@RequestBody AutorizeVO data) {
-            try {
+    @PostMapping(value = "/authorize", produces = {"application/json"},
+            consumes = {"application/json"})
+    public ResponseEntity authorize(@RequestBody AutorizeVO data) {
+        try {
 
-                Map<Object, Object> model = new HashMap();
-                if (data.getToken() != null && jwtTokenProvider.validateToken(data.getToken())) {
-                    Authentication auth = jwtTokenProvider.getAuthentication(data.getToken());
-                    if (auth != null) {
-                        model.put("userName",jwtTokenProvider.getUserDetails(data.getToken()).getUsername());
-                    }
+            Map<Object, Object> model = new HashMap();
+            if (data.getToken() != null && jwtTokenProvider.validateToken(data.getToken())) {
+                Authentication auth = jwtTokenProvider.getAuthentication(data.getToken());
+                if (auth != null) {
+                    model.put("userName", jwtTokenProvider.getUserDetails(data.getToken()).getUsername());
                 }
-
-
-                return (ResponseEntity) ResponseEntity.ok(model);
-
-            } catch (Exception e) {
-                throw new BadCredentialsException("token invalidos");
             }
+
+
+            return (ResponseEntity) ResponseEntity.ok(model);
+
+        } catch (Exception e) {
+            throw new BadCredentialsException("token invalidos");
         }
     }
+}
