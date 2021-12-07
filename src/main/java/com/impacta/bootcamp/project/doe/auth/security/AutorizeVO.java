@@ -5,6 +5,7 @@ import java.util.Objects;
 
 public class AutorizeVO implements Serializable {
     public static final long serialVersionUID = 1L;
+    public String token;
 
     public String getToken() {
         return token;
@@ -26,7 +27,4 @@ public class AutorizeVO implements Serializable {
     public int hashCode() {
         return Objects.hash(token);
     }
-
-    public String token;
-
 }
