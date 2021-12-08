@@ -1,4 +1,4 @@
-package com.impacta.bootcamp.project.doe.auth.repository;
+package com.impacta.bootcamp.project.doe.auth.repository.user;
 
 import com.impacta.bootcamp.project.doe.auth.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;

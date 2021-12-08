@@ -1,6 +1,6 @@
 package com.impacta.bootcamp.project.doe.auth.service;
 
-import com.impacta.bootcamp.project.doe.auth.repository.UserRepository;
+import com.impacta.bootcamp.project.doe.auth.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
