@@ -1,5 +1,7 @@
 package com.impacta.bootcamp.project.doe.auth.service;
 
+import com.impacta.bootcamp.project.doe.auth.controller.dto.UserDto;
+import com.impacta.bootcamp.project.doe.auth.model.User;
 import com.impacta.bootcamp.project.doe.auth.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,7 +13,6 @@ import org.springframework.stereotype.Service;
 public class UserService implements UserDetailsService {
     @Autowired
     UserRepository repository;
-
 
     public UserService(UserRepository repository) {
         this.repository = repository;
@@ -25,5 +26,11 @@ public class UserService implements UserDetailsService {
         } else {
             throw new UsernameNotFoundException("UserName" + username + "not found");
         }
+    }
+
+    public UserDto salva(UserDto dto){
+        User user = dto.converte();
+        User userSalved = repository.save(user);
+        return new UserDto(userSalved);
     }
 }
