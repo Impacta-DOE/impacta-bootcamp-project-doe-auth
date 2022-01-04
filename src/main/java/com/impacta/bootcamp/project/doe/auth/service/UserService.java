@@ -28,8 +28,13 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public UserDto salva(UserDto dto){
+    public UserDto salva(UserDto dto) {
         User user = dto.converte();
+        user.encriptografaSenha();
+        user.setAccountNonLocked(true);
+        user.setEnabled(true);
+        user.setCredentialsNonExpired(true);
+        user.setAccountNonExpired(true);
         User userSalved = repository.save(user);
         return new UserDto(userSalved);
     }

@@ -2,6 +2,7 @@ package com.impacta.bootcamp.project.doe.auth.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -148,5 +149,9 @@ public class User implements UserDetails, Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id, userName, fullName, password, accountNonExpired, accountNonLocked, credentialsNonExpired, enabled, permissions);
+    }
+
+    public void encriptografaSenha() {
+        this.password = new BCryptPasswordEncoder().encode(this.password);
     }
 }
