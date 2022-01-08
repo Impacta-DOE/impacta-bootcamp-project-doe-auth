@@ -1,6 +1,7 @@
 package com.impacta.bootcamp.project.doe.auth.service;
 
 import com.impacta.bootcamp.project.doe.auth.controller.dto.UserDto;
+import com.impacta.bootcamp.project.doe.auth.exceptions.UsernameJaExisteException;
 import com.impacta.bootcamp.project.doe.auth.model.User;
 import com.impacta.bootcamp.project.doe.auth.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +31,21 @@ public class UserService implements UserDetailsService {
 
     public UserDto salva(UserDto dto) {
         User user = dto.converte();
+
+        validaSeUsernameJaExiste(user.getUserName());
+
         user.encriptografaSenha();
         user.setAccountNonLocked(true);
         user.setEnabled(true);
         user.setCredentialsNonExpired(true);
         user.setAccountNonExpired(true);
+
         User userSalved = repository.save(user);
         return new UserDto(userSalved);
+    }
+
+    private void validaSeUsernameJaExiste(String user) {
+        User optUser = repository.findByUsername(user);
+        if (optUser != null) throw new UsernameJaExisteException();
     }
 }
