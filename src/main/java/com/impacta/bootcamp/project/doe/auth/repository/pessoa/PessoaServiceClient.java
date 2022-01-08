@@ -17,7 +17,7 @@ public class PessoaServiceClient implements PessoaRepository {
         RestTemplate restTemplate = new RestTemplate();
 
         ResponseEntity<PessoaJSON> response = restTemplate.exchange(
-                this.baseURL + "/pessoa/usuario/" + idUsuario,
+                this.baseURL + "/pessoa/usuario/" + idUsuario + "/pessoa/id",
                 HttpMethod.GET, null, PessoaJSON.class
         );
 
