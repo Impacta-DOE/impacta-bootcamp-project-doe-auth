@@ -13,15 +13,15 @@ public class PessoaServiceClient implements PessoaRepository {
     private String baseURL;
 
     @Override
-    public String buscaIdPessoaPorIdUsuario(String idUsuario) {
+    public PessoaJSON buscaIdPessoaPorIdUsuario(String idUsuario) {
         RestTemplate restTemplate = new RestTemplate();
 
         ResponseEntity<PessoaJSON> response = restTemplate.exchange(
-                this.baseURL + "/pessoa/usuario/" + idUsuario,
+                this.baseURL + "/pessoa/usuario/" + idUsuario + "/pessoa/id",
                 HttpMethod.GET, null, PessoaJSON.class
         );
 
-        if (response.getBody() != null) return response.getBody().getIdPessoa();
+        if (response.getBody() != null) return response.getBody();
         return null;
     }
 }

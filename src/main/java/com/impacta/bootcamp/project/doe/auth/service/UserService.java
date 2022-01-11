@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserService implements UserDetailsService {
     @Autowired
@@ -47,5 +49,10 @@ public class UserService implements UserDetailsService {
     private void validaSeUsernameJaExiste(String user) {
         User optUser = repository.findByUsername(user);
         if (optUser != null) throw new UsernameJaExisteException();
+    }
+
+    public String buscaUsernamePor(String id) {
+        Optional<User> optionalUser = repository.findById(Long.valueOf(id));
+        return optionalUser.map(User::getUsername).orElse(null);
     }
 }

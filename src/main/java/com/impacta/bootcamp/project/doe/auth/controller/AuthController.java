@@ -1,5 +1,6 @@
 package com.impacta.bootcamp.project.doe.auth.controller;
 
+import com.impacta.bootcamp.project.doe.auth.repository.pessoa.PessoaJSON;
 import com.impacta.bootcamp.project.doe.auth.repository.pessoa.PessoaRepository;
 import com.impacta.bootcamp.project.doe.auth.repository.user.UserRepository;
 import com.impacta.bootcamp.project.doe.auth.security.AccountCredentialsVO;
@@ -43,7 +44,7 @@ public class AuthController {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
             var user = userRepository.findByUsername(username);
 
-            String idPessoa = pessoaRepository.buscaIdPessoaPorIdUsuario(String.valueOf(user.getId()));
+            PessoaJSON pessoa = pessoaRepository.buscaIdPessoaPorIdUsuario(String.valueOf(user.getId()));
 
             var token = "";
             if (user != null) {
@@ -53,12 +54,13 @@ public class AuthController {
                 throw new UsernameNotFoundException("usuario nao encontrado");
             }
             Map<Object, Object> model = new HashMap();
+            model.put("idUsuario", user.getId());
             model.put("userName", username);
             model.put("token", token);
-            model.put("idPessoa", idPessoa);
+            model.put("idPessoa", Long.parseLong(pessoa.getIdPessoa()));
+            model.put("tipoDaPessoa", pessoa.getTipoDaPessoa());
 
             return (ResponseEntity) ResponseEntity.ok(model);
-
         } catch (Exception e) {
             throw new BadCredentialsException("Usuario ou senha invalidos");
         }
@@ -75,16 +77,16 @@ public class AuthController {
                 if (auth != null) {
                     String username = jwtTokenProvider.getUserDetails(data.getToken()).getUsername();
                     var user = userRepository.findByUsername(username);
-                    String idPessoa = pessoaRepository.buscaIdPessoaPorIdUsuario(String.valueOf(user.getId()));
 
+                    PessoaJSON pessoa = pessoaRepository.buscaIdPessoaPorIdUsuario(String.valueOf(user.getId()));
+
+                    model.put("idUsuario", user.getId());
                     model.put("userName", username);
-                    model.put("idPessoa", idPessoa);
+                    model.put("idPessoa", Long.parseLong(pessoa.getIdPessoa()));
+                    model.put("tipoDaPessoa", pessoa.getTipoDaPessoa());
                 }
             }
-
-
             return (ResponseEntity) ResponseEntity.ok(model);
-
         } catch (Exception e) {
             throw new BadCredentialsException("token invalidos");
         }
